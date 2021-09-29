@@ -49,7 +49,7 @@ const AddPost = () => {
         </div>
       </div>
       <div className={classes.post__container}>
-        {posts.length !== 0 ? (
+        {posts.length ? (
           posts.map((post, index) => {
             return (
               <Post
