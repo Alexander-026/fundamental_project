@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import Button from "../../UI/Button/Button";
-import Input from "../../UI/Input/Input";
+import React, { useMemo, useState } from "react";
 import classes from "./AddPost.module.scss";
-import Post from "./Post/Post";
+import Post from "./PostList/Post/Post";
+import PostFilter from "./PostFilter/PostFilter";
 import PostForm from "./PostForm/PostForm";
-import Select from '../../UI/Select/Select'
+import PostList from "./PostList/PostList";
 
 const AddPost = () => {
   const [posts, setPosts] = useState([
@@ -25,7 +24,28 @@ const AddPost = () => {
     },
   ]);
 
-  const [selectedSort, setSelectedSort] = useState('')
+  //const [selectedSort, setSelectedSort] = useState("");
+  //const [searchQuery, setSearchQuery] = useState("");
+
+  const [filter, setFilter] = useState({ sort: "", query: "" });
+
+  const sortedPost = useMemo(() => {
+    console.log("useMemo");
+    if (filter.sort) {
+      return [...posts].sort((a, b) =>
+        a[filter.sort].localeCompare(b[filter.sort])
+      );
+    }
+
+    return posts;
+  }, [filter.sort, posts]);
+
+  const sortedAndSearchedPost = useMemo(() => {
+    console.log("useMemo2");
+    return sortedPost.filter((post) =>
+      post.title.toLowerCase().includes(filter.query)
+    );
+  }, [filter.query, sortedPost]);
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
@@ -34,14 +54,6 @@ const AddPost = () => {
   const removePost = (post) => {
     setPosts(posts.filter((p) => p.id !== post.id));
   };
-
-
-  //? SortPosts
-  const sortPost = (sort) => {
-    
-    setSelectedSort(sort)
-   setPosts([...posts].sort((a,b) => a[sort].localeCompare(b[sort])))
-  }
 
   return (
     <>
@@ -56,29 +68,14 @@ const AddPost = () => {
       <div className={classes.post__posts}>
         <div className={classes.post__sort}>
           <h1>Posts: {posts.length}</h1>
-         <Select value={selectedSort} onChange={sortPost} defaultValue={'Sort by'} options={[
-           {value: 'title', name: 'By name'},
-           {value: 'body', name: 'By description'},
-         ]}/>
+          <PostFilter filter={filter} setFilter={setFilter} />
         </div>
       </div>
       <div className={classes.post__container}>
-        {posts.length ? (
-          posts.map((post, index) => {
-            return (
-              <Post
-                removePost={removePost}
-                number={index + 1}
-                post={post}
-                key={post.id}
-                title={post.title}
-                body={post.body}
-              />
-            );
-          })
-        ) : (
-          <h1>Posts not found</h1>
-        )}
+        <PostList
+          sortedAndSearchedPost={sortedAndSearchedPost}
+          removePost={removePost}
+        />
       </div>
     </>
   );

@@ -16,9 +16,6 @@
     width: 600px;
     margin: 0 auto;
   }
-  
-
-  
 }
 .post__posts {
   position: fixed;
@@ -32,11 +29,16 @@
 
 .post__sort {
   display: flex;
-align-items: center;
+  align-items: flex-end;
   padding: 20px;
-  h1{
+  h1 {
     margin-right: 20px;
     color: #fff;
+  }
+
+  .searh__input {
+    margin-left: 20px;
+    width: 300px;
   }
 }
 
@@ -48,8 +50,8 @@ align-items: center;
   right: 0;
   left: 0;
   bottom: 0;
-  overflow-y: auto ;
-  h1{
+  overflow-y: auto;
+  h1 {
     color: #fff;
     text-align: center;
   }
