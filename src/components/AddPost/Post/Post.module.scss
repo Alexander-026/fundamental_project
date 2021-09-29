@@ -1,0 +1,17 @@
+.post {
+  background: #ccc;
+  border-radius: 5px;
+  margin: 15px 0;
+  width: 500px;
+  .post__wrapper {
+    min-width: 500px;
+    display: flex;
+    justify-content: space-between;
+    
+    padding: 10px;
+  }
+  .post__text {
+    width: 400px;
+    word-wrap: break-word;
+  }
+}

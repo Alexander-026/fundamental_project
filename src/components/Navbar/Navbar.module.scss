@@ -1,0 +1,43 @@
+@import "../variables.scss";
+.navbar {
+  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+  height: $navbarHeight;
+  background: darkcyan;
+  padding: 0 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .navbar__logo a, .navbar__link {
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 26px;
+  }
+
+  .navbar__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .navbar__item {
+    display: inline-block;
+    margin-right: 26px;
+  }
+
+  .navbar__link {
+    font-size: 20px;
+    &:hover {
+          color:  darkslateblue;
+    }
+  }
+  .active {
+      color:  darkslateblue;  
+      text-decoration: underline;
+  }
+}

@@ -1,0 +1,13 @@
+.post__input {
+  height: 40px;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  border-bottom: 3px solid #fff;
+  font-size: 20px;
+  width: 100%;
+  &:focus {
+    border-bottom: 3px solid darkcyan;
+  }
+}
