@@ -49,18 +49,22 @@ const AddPost = () => {
         </div>
       </div>
       <div className={classes.post__container}>
-        {posts.map((post, index) => {
-          return (
-            <Post
-              removePost={removePost}
-              number={index + 1}
-              post={post}
-              key={post.id}
-              title={post.title}
-              body={post.body}
-            />
-          );
-        })}
+        {posts.length !== 0 ? (
+          posts.map((post, index) => {
+            return (
+              <Post
+                removePost={removePost}
+                number={index + 1}
+                post={post}
+                key={post.id}
+                title={post.title}
+                body={post.body}
+              />
+            );
+          })
+        ) : (
+          <h1>Posts not found</h1>
+        )}
       </div>
     </>
   );
