@@ -1,0 +1,49 @@
+@import "../variables.scss";
+.post {
+  z-index: 100;
+  position: fixed;
+  top: $navbarHeight;
+  left: 0;
+  right: 0;
+  height: $addPostHeight;
+  background: darkslateblue;
+  padding: 15px 0;
+  .post__title {
+    color: #fff;
+    text-transform: uppercase;
+  }
+  .post__input__wrapper {
+    width: 600px;
+    margin: 0 auto;
+  }
+  
+
+  
+}
+.post__posts {
+  position: fixed;
+  top: $navbarHeight + $addPostHeight;
+  height: $postsHeight;
+  z-index: 100;
+  left: 0;
+  right: 0;
+  background: darkslategrey;
+}
+
+.post__sort {
+  padding: 20px;
+  h1{
+    color: #fff;
+  }
+}
+
+.post__container {
+  padding-left: 20px;
+  position: absolute;
+  background: darkslategrey;
+  top: $navbarHeight + $addPostHeight + $postsHeight;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto ;
+}
