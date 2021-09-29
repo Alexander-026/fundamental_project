@@ -4,25 +4,28 @@ import Input from "../../UI/Input/Input";
 import classes from "./AddPost.module.scss";
 import Post from "./Post/Post";
 import PostForm from "./PostForm/PostForm";
+import Select from '../../UI/Select/Select'
 
 const AddPost = () => {
   const [posts, setPosts] = useState([
     {
       id: 1,
-      title: "JavaScript",
+      title: "xxx JavaScript1",
       body: "I learning Js and i will be frontend developer",
     },
     {
       id: 2,
-      title: "React Js",
+      title: "xkmk React Js2",
       body: "I learning Js and React and i will be React frontend developer",
     },
     {
       id: 3,
-      title: "TypeScript",
+      title: "kxnmkx TypeScript3",
       body: "I learning TypeScript and i will use TypeScript with Js and React",
     },
   ]);
+
+  const [selectedSort, setSelectedSort] = useState('')
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
@@ -31,6 +34,12 @@ const AddPost = () => {
   const removePost = (post) => {
     setPosts(posts.filter((p) => p.id !== post.id));
   };
+
+  const sortPost = (sort) => {
+    
+    setSelectedSort(sort)
+   setPosts([...posts].sort((a,b) => a[sort].localeCompare(b[sort])))
+  }
 
   return (
     <>
@@ -45,7 +54,10 @@ const AddPost = () => {
       <div className={classes.post__posts}>
         <div className={classes.post__sort}>
           <h1>Posts: {posts.length}</h1>
-          <Button>Sort</Button>
+         <Select value={selectedSort} onChange={sortPost} defaultValue={'Sort by'} options={[
+           {value: 'title', name: 'By name'},
+           {value: 'body', name: 'By description'},
+         ]}/>
         </div>
       </div>
       <div className={classes.post__container}>
