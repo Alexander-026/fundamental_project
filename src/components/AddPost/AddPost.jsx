@@ -35,6 +35,8 @@ const AddPost = () => {
     setPosts(posts.filter((p) => p.id !== post.id));
   };
 
+
+  //? Sort Posts
   const sortPost = (sort) => {
     
     setSelectedSort(sort)
