@@ -36,7 +36,7 @@ const AddPost = () => {
   };
 
 
-  //? Sort Posts
+  //? SortPosts
   const sortPost = (sort) => {
     
     setSelectedSort(sort)
