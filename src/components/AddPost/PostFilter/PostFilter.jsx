@@ -17,6 +17,7 @@ const PostFilter = ({filter, setFilter}) => {
       />
       <div className={classes.searh__input}>
         <Input
+          style={{borderBottom: '3px solid #ccc', color: '#fff'}}
           value={filter.query}
           onChange={(e) => setFilter({...filter, query: e.target.value})}
           placeholder={"Search post"}

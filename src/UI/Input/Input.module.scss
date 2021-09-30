@@ -8,6 +8,6 @@
   font-size: 20px;
   width: 100%;
   &:focus {
-    border-bottom: 3px solid darkcyan;
+    border-bottom: 3px solid darkcyan !important;
   }
 }
