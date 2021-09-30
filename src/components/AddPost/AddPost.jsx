@@ -1,9 +1,11 @@
 import React, { useMemo, useState } from "react";
 import classes from "./AddPost.module.scss";
-import Post from "./PostList/Post/Post";
+//import Post from "./PostList/Post/Post";
 import PostFilter from "./PostFilter/PostFilter";
 import PostForm from "./PostForm/PostForm";
 import PostList from "./PostList/PostList";
+import Button from "../../UI/Button/Button";
+import ModalWindow from '../../UI/ModalWindow/ModalWindow'
 
 const AddPost = () => {
   const [posts, setPosts] = useState([
@@ -24,13 +26,12 @@ const AddPost = () => {
     },
   ]);
 
-  //const [selectedSort, setSelectedSort] = useState("");
-  //const [searchQuery, setSearchQuery] = useState("");
 
   const [filter, setFilter] = useState({ sort: "", query: "" });
 
+  const [visible, setVisible] = useState(false)
+
   const sortedPost = useMemo(() => {
-    console.log("useMemo");
     if (filter.sort) {
       return [...posts].sort((a, b) =>
         a[filter.sort].localeCompare(b[filter.sort])
@@ -41,7 +42,6 @@ const AddPost = () => {
   }, [filter.sort, posts]);
 
   const sortedAndSearchedPost = useMemo(() => {
-    console.log("useMemo2");
     return sortedPost.filter((post) =>
       post.title.toLowerCase().includes(filter.query)
     );
@@ -49,6 +49,7 @@ const AddPost = () => {
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
+    setVisible(false)
   };
 
   const removePost = (post) => {
@@ -57,19 +58,13 @@ const AddPost = () => {
 
   return (
     <>
-      <div className={classes.post}>
-        <div className={classes.post__wrapper}>
-          <h1 className={classes.post__title}>Add Post</h1>
-          <div className={classes.post__input__wrapper}>
-            <PostForm create={createPost} />
-          </div>
-        </div>
-      </div>
-      <div className={classes.post__posts}>
-        <div className={classes.post__sort}>
+      <ModalWindow visible={visible} setVisible={setVisible}>
+        <PostForm create={createPost} />
+      </ModalWindow>
+      <div className={classes.addPost}>
+          <Button onClick={() => setVisible(true)}>ADD NEW POST</Button>
           <h1>Posts: {posts.length}</h1>
           <PostFilter filter={filter} setFilter={setFilter} />
-        </div>
       </div>
       <div className={classes.post__container}>
         <PostList
