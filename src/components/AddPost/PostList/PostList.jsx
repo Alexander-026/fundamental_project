@@ -1,13 +1,12 @@
 import React from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import Post from "./Post/Post";
-import "./PostList.scss";
 
 const PostList = ({ sortedAndSearchedPost, removePost }) => {
   return (
     <>
       {sortedAndSearchedPost.length ? (
-        <TransitionGroup>
+        <TransitionGroup >
           {sortedAndSearchedPost.map((post, index) => {
             return (
               <CSSTransition key={post.id} timeout={500} classNames="post">

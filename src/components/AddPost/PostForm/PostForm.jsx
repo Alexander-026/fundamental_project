@@ -7,7 +7,7 @@ const PostForm = ({create}) => {
   const [post, setPost] = useState({ title: "", body: "" });
   const addNewPost = (e) => {
     e.preventDefault();
-    if (post.title === "" || post.body === "") {
+    if (post.title === " " || post.body === " ") {
       return null;
     }
     const newPost = {
