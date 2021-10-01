@@ -7,7 +7,7 @@ const Post = ({...props}) => {
     <div className={classes.post}>
       <div className={classes.post__wrapper}>
         <div>
-          <strong>{props.number}:{props.title}</strong>
+          <strong>{props.post.id}:{props.title}</strong>
           <div className={classes.post__text}>{props.body}</div>
         </div>
         <Button onClick={() => props.removePost(props.post)}>X</Button>
