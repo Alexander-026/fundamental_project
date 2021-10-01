@@ -18,3 +18,28 @@
   transform: translateX(-350px);
   transition: all 500ms ease-in;
 }
+
+.pagination {
+  margin-top: 10px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  .btn {
+    padding: 10px;
+    height: 40px;
+    background: #fff;
+    border-radius: 5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    &:active {
+      background: darkcyan;
+      color: #fff;
+    }
+  }
+  .current {
+    background: darkcyan;
+    color: #fff;
+  }
+}

@@ -3,14 +3,15 @@
   position: fixed;
   top: $navbarHeight;
   height: $postsHeight;
+  padding-left: 20px;
+  display: flex;
+  align-items: center;
   z-index: 100;
   left: 0;
   right: 0;
   background: darkslategrey;
   border-bottom: 1px solid #ccc;
-  display: flex;
-  justify-content: left;
-  align-items: center;
+
   h1 {
     margin: 0 20px;
     color: #fff;
@@ -22,12 +23,20 @@
   }
 }
 
+.addPost__filter {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+
+
 
 .post__container {
   padding-left: 20px;
   position: absolute;
   background: darkslategrey;
-  top: $navbarHeight  + $postsHeight;
+  top: $navbarHeight + $postsHeight;
   right: 0;
   left: 0;
   bottom: 0;
