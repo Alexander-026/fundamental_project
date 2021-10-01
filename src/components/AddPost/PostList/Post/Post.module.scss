@@ -4,15 +4,23 @@
   margin: 15px 0;
   width: 500px;
   .post__wrapper {
+    min-height: 120px;
     text-align: left;
     min-width: 500px;
     display: flex;
     justify-content: space-between;
-    
     padding: 10px;
-  }
-  .post__text {
-    width: 400px;
-    word-wrap: break-word;
+    .post__context {
+      width: 400px;
+      word-wrap: break-word;
+    }
+
+    .post__btns {
+      width: 80px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-direction: column;
+    }
   }
 }

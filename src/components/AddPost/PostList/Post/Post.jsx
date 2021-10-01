@@ -1,16 +1,23 @@
 import React from "react";
+import { useHistory } from "react-router";
 import Button from "../../../../UI/Button/Button";
 import classes from "./Post.module.scss";
 
-const Post = ({...props}) => {
+const Post = ({ ...props }) => {
+  const router = useHistory()
   return (
     <div className={classes.post}>
       <div className={classes.post__wrapper}>
-        <div>
-          <strong>{props.post.id}:{props.title}</strong>
-          <div className={classes.post__text}>{props.body}</div>
+        <div className={classes.post__context}>
+          <strong>
+            {props.post.id}:{props.title}
+          </strong>
+          <div>{props.body}</div>
         </div>
-        <Button onClick={() => props.removePost(props.post)}>X</Button>
+        <div  className={classes.post__btns}>
+          <Button onClick={() => props.removePost(props.post)}>X</Button>
+          <Button onClick={() => router.push(`/posts/${props.post.id}`)}>Open</Button>
+        </div>
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ import { usePosts } from "../../hooks/usePosts";
 import PostService from "../../API/PostService";
 import Loader from "../../UI/Loader/Loader";
 import useFetching from "../../hooks/useFetching";
-import { getPageCount, getPagesArrey } from "../../utils/getPageCount";
+import { getPageCount } from "../../utils/getPageCount";
 import Pagination from "../../UI/Pagination/Pagination";
 const AddPost = () => {
   const [posts, setPosts] = useState([]);
@@ -20,14 +20,14 @@ const AddPost = () => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
 
-  
-
-  const [fetchPosts, isPostsLoading, postsError] = useFetching(async (limit, page) => {
-    const response = await PostService.getAll(limit, page);
-    setPosts(response.data);
-    const totalCount = response.headers["x-total-count"];
-    setTotalPage(getPageCount(totalCount, limit));
-  });
+  const [fetchPosts, isPostsLoading, postsError] = useFetching(
+    async (limit, page) => {
+      const response = await PostService.getAll(limit, page);
+      setPosts(response.data);
+      const totalCount = response.headers["x-total-count"];
+      setTotalPage(getPageCount(totalCount, limit));
+    }
+  );
 
   useEffect(async () => {
     fetchPosts(limit, page);
@@ -42,11 +42,10 @@ const AddPost = () => {
     setPosts(posts.filter((p) => p.id !== post.id));
   };
 
-
   const changePage = (page) => {
-    setPage(page)
+    setPage(page);
     fetchPosts(limit, page);
-  }
+  };
 
   return (
     <>
@@ -61,7 +60,11 @@ const AddPost = () => {
             <PostFilter filter={filter} setFilter={setFilter} />
           </div>
           <div className={"pagination"}>
-           <Pagination totalPages={totalPages} page={page} changePage={changePage}/>
+            <Pagination
+              totalPages={totalPages}
+              page={page}
+              changePage={changePage}
+            />
           </div>
         </div>
       </div>
@@ -75,7 +78,6 @@ const AddPost = () => {
             removePost={removePost}
           />
         )}
-        
       </div>
     </>
   );
