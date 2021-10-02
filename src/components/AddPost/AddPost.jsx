@@ -3,6 +3,7 @@ import classes from "./AddPost.module.scss";
 import PostFilter from "./PostFilter/PostFilter";
 import PostForm from "./PostForm/PostForm";
 import PostList from "./PostList/PostList";
+import Select from '../../UI/Select/Select'
 import Button from "../../UI/Button/Button";
 import ModalWindow from "../../UI/ModalWindow/ModalWindow";
 import { usePosts } from "../../hooks/usePosts";
@@ -38,7 +39,7 @@ const AddPost = () => {
 
   useEffect(async () => {
     fetchPosts(limit, page);
-  }, [page]);
+  }, [page, limit]);
 
   const createPost = (newPost) => {
     setPosts([newPost, ...posts]);
@@ -64,7 +65,14 @@ const AddPost = () => {
           <div className={classes.addPost__filter}>
             <Button onClick={() => setVisible(true)}>ADD NEW POST</Button>
             <h1>Posts: {posts.length}</h1>
+            <Select value={limit} onChange={value => setLimit(value)} defaultValue={'Amount of elements'} options={[
+              {value: 5, name: '5'},
+              {value: 10, name: '10'},
+              {value: 25, name: '25'},
+              {value: -1, name: 'All'},
+            ]}/>
             <PostFilter filter={filter} setFilter={setFilter} />
+            
           </div>
           <div className={"pagination"}>
             <Pagination
