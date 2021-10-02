@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import classes from "./AddPost.module.scss";
 import PostFilter from "./PostFilter/PostFilter";
 import PostForm from "./PostForm/PostForm";
@@ -6,11 +6,13 @@ import PostList from "./PostList/PostList";
 import Button from "../../UI/Button/Button";
 import ModalWindow from "../../UI/ModalWindow/ModalWindow";
 import { usePosts } from "../../hooks/usePosts";
+import { useObserver } from "../../hooks/useObserver";
 import PostService from "../../API/PostService";
 import Loader from "../../UI/Loader/Loader";
 import useFetching from "../../hooks/useFetching";
 import { getPageCount } from "../../utils/getPageCount";
 import Pagination from "../../UI/Pagination/Pagination";
+
 const AddPost = () => {
   const [posts, setPosts] = useState([]);
   const [filter, setFilter] = useState({ sort: "", query: "" });
@@ -19,19 +21,24 @@ const AddPost = () => {
   const [totalPages, setTotalPage] = useState(0);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
+  const lastElement = useRef();
 
   const [fetchPosts, isPostsLoading, postsError] = useFetching(
     async (limit, page) => {
       const response = await PostService.getAll(limit, page);
-      setPosts(response.data);
+      setPosts([...posts, ...response.data]);
       const totalCount = response.headers["x-total-count"];
       setTotalPage(getPageCount(totalCount, limit));
     }
   );
 
+  useObserver(lastElement, page < totalPages, isPostsLoading, () => {
+    setPage(page + 1)
+  });
+
   useEffect(async () => {
     fetchPosts(limit, page);
-  }, []);
+  }, [page]);
 
   const createPost = (newPost) => {
     setPosts([newPost, ...posts]);
@@ -70,14 +77,12 @@ const AddPost = () => {
       </div>
       <div className={classes.post__container}>
         {postsError && <h1 style={{ color: "red" }}>{postsError}</h1>}
-        {isPostsLoading ? (
-          <Loader />
-        ) : (
-          <PostList
-            sortedAndSearchedPost={sortedAndSearchedPost}
-            removePost={removePost}
-          />
-        )}
+        <PostList
+          sortedAndSearchedPost={sortedAndSearchedPost}
+          removePost={removePost}
+        />
+        <div ref={lastElement} style={{ height: 20, background: "red" }}></div>
+        {isPostsLoading && <Loader />}
       </div>
     </>
   );
