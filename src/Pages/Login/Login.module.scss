@@ -1,0 +1,11 @@
+@import "../../Styles/variables.scss";
+
+.Login {
+  margin: 0 auto;
+  border: 2px solid #fff;
+  width: 600px;
+  margin-top: $navbarHeight * 2;
+  background: #fff;
+  padding: 20px;
+  text-align: center;
+}

@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+import Button from "../../UI/Button/Button";
 import classes from "./Navbar.module.scss";
 const Navbar = () => {
+  const {isAuth, setIsAuth} = useContext(AuthContext)
+  const logout = () => {
+    setIsAuth(false)
+    localStorage.removeItem('auth')
+  }
   return (
     <div className={classes.navbar}>
       <div className={classes.navbar__logo}>
@@ -27,6 +34,9 @@ const Navbar = () => {
             Posts
           </NavLink>
         </li>
+        {isAuth &&  <li className={classes.navbar__item}>
+          <Button onClick={() => logout()}>Logout</Button>
+        </li>}
       </ul>
     </div>
   );

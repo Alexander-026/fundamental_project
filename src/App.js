@@ -1,19 +1,33 @@
-import React from "react";
-import AddPost from "./components/AddPost/AddPost";
+import React, { useEffect, useState } from "react";
 import "./app.scss";
 import Navbar from "./components/Navbar/Navbar";
 import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./components/AppRouter/AppRouter";
-
+import { AuthContext } from "./context/AuthContext";
 
 const App = () => {
+  const [isAuth, setIsAuth] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (localStorage.getItem("auth")) {
+      setIsAuth(true);
+    }
+    setIsLoading(false);
+  }, []);
   return (
-    <div>
+    <AuthContext.Provider
+      value={{
+        isAuth,
+        setIsAuth,
+        isLoading
+      }}
+    >
       <BrowserRouter>
         <Navbar />
-        <AppRouter/>
+        <AppRouter />
       </BrowserRouter>
-    </div>
+    </AuthContext.Provider>
   );
 };
 
